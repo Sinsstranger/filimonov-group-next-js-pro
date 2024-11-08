@@ -17,12 +17,13 @@ export async function GET(request: Request, { params }: { params: { id: string }
 export async function POST(request: Request, { params }: { params: { id: string } }) {
   const ingredientId = parseInt(params.id, 10)
   try {
-    const ingredient = prisma.ingredient.findFirst({
+    const ingredient = await prisma.ingredient.findFirst({
       where: { id: ingredientId },
     })
     if (!ingredient) {
       return NextResponse.json({ error: "Ингредиент не найден" }, { status: 404, statusText: "Not Found" })
     }
+    return NextResponse.json({ ingredient })
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500, statusText: "Server Error" })
