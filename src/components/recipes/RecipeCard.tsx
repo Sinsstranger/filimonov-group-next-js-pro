@@ -24,9 +24,9 @@ export default function RecipeCard({ id, title, description, image, showIngredie
   }
   const getIngredients = useCallback(async () => {
     setShowIngredients(true)
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/ingredients/${id}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes/${id}`)
     const data = await res.json()
-    setIngredients(data)
+    setIngredients(data.ingredients)
   }, [id])
   const hideIngredients = useCallback(() => setShowIngredients(false), [])
   return (

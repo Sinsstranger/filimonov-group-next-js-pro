@@ -1,14 +1,6 @@
 import RecipeCard from "@/components/recipes/RecipeCard"
+import type { Recipe } from "@prisma/client"
 import type { Metadata } from "next"
-// import Image from "next/image"
-
-// interface Recipe {
-//   id: number
-//   title: string
-//   description: string
-//   image: string
-// }
-
 export const metadata: Metadata = {
   title: "Книга рецептов",
   description: "Книга рецептов. Делитесь любимыми рецептами и открывайте для себя новые",
@@ -19,7 +11,6 @@ async function fetchRecipes() {
   if (!res.ok) {
     throw new Error("404")
   }
-
   return await res.json()
 }
 
@@ -36,8 +27,8 @@ export default async function RecipesPage() {
             id={recipe.id}
             title={recipe.title}
             description={recipe.description}
-            image={recipe.image}
             showIngredientsBtn={true}
+            image={recipe.imageUrl}
           />
         ))}
       </ul>
