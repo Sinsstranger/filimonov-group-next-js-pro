@@ -11,7 +11,6 @@ async function fetchRecipes() {
   if (!res.ok) {
     throw new Error("404")
   }
-
   return await res.json()
 }
 

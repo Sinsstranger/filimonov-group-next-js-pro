@@ -4,10 +4,9 @@ import { prisma } from "@/libs/prisma"
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   const ingredientId = parseInt(params.id, 10)
 
-  const ingredient = prisma.ingredient.findFirst({
+  const ingredient = await prisma.ingredient.findFirst({
     where: { id: ingredientId },
   })
-
   if (!ingredient) {
     return NextResponse.json({ error: "Ингредиенты не найдены" }, { status: 404 })
   }

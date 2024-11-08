@@ -7,6 +7,7 @@ const nextConfig = {
   },
   sassOptions: {
     implementation: "sass-embedded",
+    silenceDeprecations: ["legacy-js-api"],
   },
 }
 
