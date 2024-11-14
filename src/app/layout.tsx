@@ -26,11 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
-      <head></head>
+    <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         <header className="bg-gray-200 text-white p-2">
           {/* <div className="container mx-auto flex justify-between items-center">
