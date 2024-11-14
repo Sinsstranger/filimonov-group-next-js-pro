@@ -3,7 +3,6 @@ import localFont from "next/font/local"
 import "./globals.css"
 // import { NavLinks } from "@/components/shared/NavLinks"
 import MainMenu from "@/components/shared/MainMenu"
-import { ThemeModeScript } from "flowbite-react"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,9 +30,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <head>
-        <ThemeModeScript />
-      </head>
+      <head></head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         <header className="bg-gray-200 text-white p-2">
           {/* <div className="container mx-auto flex justify-between items-center">
