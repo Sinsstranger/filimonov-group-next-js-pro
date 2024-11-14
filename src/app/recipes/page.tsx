@@ -15,8 +15,7 @@ async function fetchRecipes() {
 }
 
 export default async function RecipesPage() {
-  const recipes = await fetchRecipes()
-  // console.log(recipes)
+  const recipes: Recipe[] = await fetchRecipes()
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl mb-6">Рецепты</h1>
@@ -29,6 +28,7 @@ export default async function RecipesPage() {
             description={recipe.description}
             showIngredientsBtn={true}
             image={recipe.imageUrl}
+            rating={recipe.rating}
           />
         ))}
       </ul>

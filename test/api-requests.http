@@ -12,14 +12,24 @@ POST http://localhost:3000/api/recipes
 Content-Type: application/json
 
 {
-  "title": "Омлет",
-  "description": "Вкусный омлет с зеленью и сыром",
-  "imageUrl": "/images/omelette.jpg",
-  "ingredients": [
-    { "name": "Яйца", "amount": "3 шт" },
-    { "name": "Молоко", "amount": "50 мл" },
-    { "name": "Сыр", "amount": "50 г" }
-  ]
+	"title": "Омлет",
+	"description": "Вкусный омлет с зеленью и сыром",
+	"imageUrl": "/images/omelette.jpg",
+	"ingredients": [
+		{
+			"name": "Яйца",
+			"amount": "3 шт"
+		},
+		{
+			"name": "Молоко",
+			"amount": "50 мл"
+		},
+		{
+			"name": "Сыр",
+			"amount": "50 г"
+		}
+	],
+	"rating": 4
 }
 
 ### Обновление рецепта по id (замените {id} на нужный id)

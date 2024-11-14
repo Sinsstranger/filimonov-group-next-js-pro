@@ -13,6 +13,7 @@ const recipes = [
       { name: "Пармезан", amount: "50 г" },
       { name: "Бекон", amount: "100 г" },
     ],
+    rating: 5,
   },
   {
     title: "Пицца Маргарита",
@@ -24,6 +25,7 @@ const recipes = [
       { name: "Моцарелла", amount: "100 г" },
       { name: "Базилик", amount: "по вкусу" },
     ],
+    rating: 4,
   },
   {
     title: "Салат Цезарь",
@@ -35,6 +37,7 @@ const recipes = [
       { name: "Соус Цезарь", amount: "30 г" },
       { name: "Пармезан", amount: "20 г" },
     ],
+    rating: 5,
   },
 ]
 
@@ -48,6 +51,7 @@ async function main() {
         title: recipe.title,
         description: recipe.description,
         imageUrl: recipe.imageUrl,
+        rating: recipe.rating,
         ingredients: {
           create: recipe.ingredients.map((ingredient) => ({
             name: ingredient.name,

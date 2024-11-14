@@ -1,11 +1,11 @@
 "use client"
-
 import { useState, useCallback } from "react"
 import { HeartIcon as SolidHeartIcon } from "@heroicons/react/24/solid"
 import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 import Link from "next/link"
 import IngredientsList, { Ingredient } from "@/components/ingredients/IngredientsList"
+import { Card, Rating } from "flowbite-react"
 
 interface RecipeCardProps {
   id: number
@@ -13,12 +13,25 @@ interface RecipeCardProps {
   description: string
   image: string
   showIngredientsBtn?: boolean
+  rating?: number
 }
 
-export default function RecipeCard({ id, title, description, image, showIngredientsBtn = false }: RecipeCardProps) {
+export default function RecipeCard({ id, title, description, image, rating, showIngredientsBtn = false }: RecipeCardProps) {
   const [liked, setLiked] = useState(false)
   const [showIngredients, setShowIngredients] = useState(false)
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  const stars = rating
+    ? Array.from({ length: 5 }, (_, i) =>
+        i < rating ? (
+          <Rating.Star key={i} />
+        ) : (
+          <Rating.Star
+            filled={false}
+            key={i}
+          />
+        )
+      )
+    : null
   const toggleLike = () => {
     setLiked(!liked)
   }
@@ -29,19 +42,24 @@ export default function RecipeCard({ id, title, description, image, showIngredie
     setIngredients(data.ingredients)
   }, [id])
   const hideIngredients = useCallback(() => setShowIngredients(false), [])
+  console.log()
   return (
-    <li className="border p-4 rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700">
-      <Link href={`/recipes/${id}`}>
-        <Image
-          src={image}
-          width={300}
-          height={200}
-          alt={title}
-          className="mb-4 rounded-lg"
-        />
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{title}</h3>
-        <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">{description}</p>
-      </Link>
+    <Card
+      className="max-w-sm"
+      renderImage={() => (
+        <Link href={`/recipes/${id}`}>
+          <Image
+            width={500}
+            height={500}
+            src={image}
+            alt="image 1"
+          />
+        </Link>
+      )}
+    >
+      <Rating>{rating && stars}</Rating>
+      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+      <p className="font-normal text-gray-700 dark:text-gray-400">{description}</p>
       {showIngredients && ingredients.length > 0 && <IngredientsList ingredients={ingredients} />}
       {showIngredientsBtn && (
         <button
@@ -58,6 +76,6 @@ export default function RecipeCard({ id, title, description, image, showIngredie
         {liked ? <SolidHeartIcon className="w-6 h-6 text-red-500" /> : <OutlineHeartIcon className="w-6 h-6 text-gray-500" />}
         <span className="text-gray-900 dark:text-gray-200">{liked ? "Вы поставили лайк!" : "Поставить лайк"}</span>
       </button>
-    </li>
+    </Card>
   )
 }
