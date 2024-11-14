@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import IngredientsList, { Ingredient } from "@/components/ingredients/IngredientsList"
 import { Card, Rating } from "flowbite-react"
+import RatingStars from "@/components/recipes/RatingStars"
 
 interface RecipeCardProps {
   id: number
@@ -20,18 +21,6 @@ export default function RecipeCard({ id, title, description, image, rating, show
   const [liked, setLiked] = useState(false)
   const [showIngredients, setShowIngredients] = useState(false)
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
-  const stars = rating
-    ? Array.from({ length: 5 }, (_, i) =>
-        i < rating ? (
-          <Rating.Star key={i} />
-        ) : (
-          <Rating.Star
-            filled={false}
-            key={i}
-          />
-        )
-      )
-    : null
   const toggleLike = () => {
     setLiked(!liked)
   }
@@ -42,7 +31,6 @@ export default function RecipeCard({ id, title, description, image, rating, show
     setIngredients(data.ingredients)
   }, [id])
   const hideIngredients = useCallback(() => setShowIngredients(false), [])
-  console.log()
   return (
     <Card
       className="max-w-sm"
@@ -57,7 +45,7 @@ export default function RecipeCard({ id, title, description, image, rating, show
         </Link>
       )}
     >
-      <Rating>{rating && stars}</Rating>
+      {rating && <RatingStars rating={rating} />}
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
       <p className="font-normal text-gray-700 dark:text-gray-400">{description}</p>
       {showIngredients && ingredients.length > 0 && <IngredientsList ingredients={ingredients} />}

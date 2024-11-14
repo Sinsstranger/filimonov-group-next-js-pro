@@ -31,6 +31,7 @@ export default async function RecipesPage({ params }: { params: { id: string } }
           description={recipe.description}
           showIngredientsBtn={true}
           image={recipe.imageUrl}
+          rating={recipe.rating}
         />
       </ul>
       <div className="mt-8">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "О нас",
@@ -16,13 +17,6 @@ export default function AboutPage() {
           width={320}
           height={320}
         />
-        <Image
-          className="w-full hidden dark:block"
-          src="/images/carbonara.jpg"
-          alt="dashboard image"
-          width={320}
-          height={320}
-        />
         <div className="mt-4 md:mt-0">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             Let&#39;s create more tools and ideas that brings us together.
@@ -31,7 +25,7 @@ export default function AboutPage() {
             Flowbite helps you connect with friends and communities of people who share your interests. Connecting with your friends and family as
             well as discovering new ones is easy with features like Groups.
           </p>
-          <a
+          <Link
             href="#"
             className="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900"
           >
@@ -43,12 +37,12 @@ export default function AboutPage() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
                 clip-rule="evenodd"
               ></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
