@@ -19,6 +19,8 @@ model Recipe {
   description String
   imageUrl    String
   ingredients Ingredient[]
+  chefId      Int?
+  chef        Chef?        @relation(fields: [chefId], references: [id])
   tags        RecipeTag[]
 }
 
@@ -43,4 +45,11 @@ model RecipeTag {
   tag      Tag    @relation(fields: [tagId], references: [id])
 
   @@id([recipeId, tagId])
+}
+
+model Chef {
+  id     Int      @id @default(autoincrement())
+  name   String
+  bio    String?
+  Recipe Recipe[]
 }
