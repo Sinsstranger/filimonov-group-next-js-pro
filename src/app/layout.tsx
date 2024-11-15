@@ -30,15 +30,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         <header className="bg-gray-200 text-white p-2">
-          {/* <div className="container mx-auto flex justify-between items-center">
-            <NavLinks />
-          </div> */}
           <MainMenu />
         </header>
 
         <main className="flex-grow p-4">{children}</main>
         <footer className="bg-white dark:bg-gray-800 text-gray-500 dark:text-white p-4 text-center text-balance">
-          © 2024 Все права защищены lorem
+          © {new Date().getFullYear()} Все права защищены
         </footer>
       </body>
     </html>
