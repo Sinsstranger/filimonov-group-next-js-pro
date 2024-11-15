@@ -5,7 +5,7 @@ import { HeartIcon as OutlineHeartIcon } from "@heroicons/react/24/outline"
 import Image from "next/image"
 import Link from "next/link"
 import IngredientsList, { Ingredient } from "@/components/ingredients/IngredientsList"
-import { Card, Rating } from "flowbite-react"
+import { Card } from "flowbite-react"
 import RatingStars from "@/components/recipes/RatingStars"
 
 interface RecipeCardProps {
