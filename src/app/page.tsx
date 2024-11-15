@@ -2,6 +2,8 @@ import HeroSection from "@/components/shared/HeroSection"
 import type { Metadata } from "next"
 import React from "react"
 import "@/scss/app.scss"
+import { fetchRecipes } from "@/helpers/api"
+import { Recipe } from "@prisma/client"
 
 export const metadata: Metadata = {
   title: "Книга рецептов",
@@ -9,6 +11,14 @@ export const metadata: Metadata = {
 }
 
 export default async function Home(): Promise<React.JSX.Element> {
+  const recipes: Recipe[] = await fetchRecipes()
+  const images = recipes.map((r: { id: number; imageUrl: string; title: string }) => ({
+    href: `/recipes/${r.id}`,
+    src: r.imageUrl,
+    alt: r.title,
+    width: 80,
+    height: 40,
+  }))
   return (
     <div className="container mx-auto p-4">
       <HeroSection
@@ -22,13 +32,7 @@ export default async function Home(): Promise<React.JSX.Element> {
         alertLink="/recipes"
         alertBadge="Новинка"
         popularText="Популярно"
-        images={[
-          { href: "/recipes/1", src: "/images/carbonara.jpg", alt: "Carbonara", width: 80, height: 40 },
-          { href: "/recipes", src: "/images/omelette.jpg", alt: "Omelette", width: 100, height: 50 },
-          { href: "/recipes/2", src: "/images/pizza.jpg", alt: "Pizza", width: 100, height: 50 },
-          { href: "/recipes/1", src: "/images/carbonara.jpg", alt: "Carbonara", width: 80, height: 40 },
-          { href: "/recipes/3", src: "/images/salad.jpg", alt: "Salad", width: 90, height: 45 },
-        ]}
+        images={images}
       />
     </div>
   )
