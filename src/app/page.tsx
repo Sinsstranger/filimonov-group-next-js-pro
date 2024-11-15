@@ -1,8 +1,9 @@
+import HeroSection from "@/components/shared/HeroSection"
 import type { Metadata } from "next"
-import Link from "next/link"
 import React from "react"
-import RecipeCard from "@/components/recipes/RecipeCard"
 import "@/scss/app.scss"
+import { fetchRecipes } from "@/helpers/api"
+import { Recipe } from "@prisma/client"
 
 export const metadata: Metadata = {
   title: "Книга рецептов",
@@ -10,32 +11,29 @@ export const metadata: Metadata = {
 }
 
 export default async function Home(): Promise<React.JSX.Element> {
-  const dailyRecipe =
-    process.env.NEXT_PUBLIC_MAIN_RECIPE_ID && process.env.NEXT_PUBLIC_MAIN_RECIPE_ID !== "0"
-      ? await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes/${process.env.NEXT_PUBLIC_MAIN_RECIPE_ID}`).then((res) => res.json())
-      : null
+  const recipes: Recipe[] = await fetchRecipes()
+  const images = recipes.map((r: { id: number; imageUrl: string; title: string }) => ({
+    href: `/recipes/${r.id}`,
+    src: r.imageUrl,
+    alt: r.title,
+    width: 80,
+    height: 40,
+  }))
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold">Добро пожаловать на платформу рецептов</h1>
-      <p className="mt-4 text-lg">Делитесь любимыми рецептами и открывайте для себя новые!</p>
-      {dailyRecipe && (
-        <ul className="daily-recipes">
-          <RecipeCard
-            id={dailyRecipe.id}
-            title={dailyRecipe.title}
-            description={dailyRecipe.description}
-            image={dailyRecipe.image}
-          />
-        </ul>
-      )}
-      <nav className="mt-6">
-        <Link
-          href="/recipes"
-          className="text-blue-500 hover:underline"
-        >
-          Посмотреть рецепты
-        </Link>
-      </nav>
+      <HeroSection
+        headline="Откройте для себя мир кулинарных шедевров"
+        subheadLine="Добро пожаловать в книгу рецептов, где каждый рецепт – это маленький праздник! Найдите вдохновение для создания удивительных блюд, которые порадуют вас и ваших близких."
+        primaryBtnText="Узнать больше"
+        primaryBtnLink="/about"
+        secondaryBtnText="Смотреть видео"
+        secondaryBtnLink="/watch-demo"
+        alertText="Попробуйте наши самые популярные рецепты!"
+        alertLink="/recipes"
+        alertBadge="Новинка"
+        popularText="Популярно"
+        images={images}
+      />
     </div>
   )
 }

@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
-import { NavLinks } from "@/components/shared/NavLinks"
+// import { NavLinks } from "@/components/shared/NavLinks"
+import MainMenu from "@/components/shared/MainMenu"
+import React from "react"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,15 +28,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="bg-gray-200 text-white p-4">
-          <div className="container mx-auto flex justify-between items-center">
-            <NavLinks />
-          </div>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+        <header className="bg-gray-200 text-white p-2">
+          <MainMenu />
         </header>
 
         <main className="flex-grow p-4">{children}</main>
-        <footer className="bg-gray-800 text-white p-4 text-center">© 2024 Все права защищены</footer>
+        <footer className="bg-white dark:bg-gray-800 text-gray-500 dark:text-white p-4 text-center text-balance">
+          © {new Date().getFullYear()} Все права защищены
+        </footer>
       </body>
     </html>
   )
