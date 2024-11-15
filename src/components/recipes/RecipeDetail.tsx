@@ -25,8 +25,8 @@ export default async function RecipeDetail({ params }: { params: Params }) {
         <p className="my-2">{params.description}</p>
         <h6 className="my-1">Ингредиенты:</h6>
         <ul className="italic">
-          {params.ingredients.map((i: Ingredient, idx: number) => (
-            <li key={idx}>
+          {params.ingredients.map((i: Ingredient) => (
+            <li key={i.id}>
               {i.name} : {i.amount}
             </li>
           ))}

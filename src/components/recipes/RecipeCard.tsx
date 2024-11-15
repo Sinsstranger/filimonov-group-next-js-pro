@@ -7,6 +7,7 @@ import Link from "next/link"
 import IngredientsList, { Ingredient } from "@/components/ingredients/IngredientsList"
 import { Card } from "flowbite-react"
 import RatingStars from "@/components/recipes/RatingStars"
+import { fetchRecipeById } from "@/helpers/api.js"
 
 interface RecipeCardProps {
   id: number
@@ -26,7 +27,7 @@ export default function RecipeCard({ id, title, description, image, rating, show
   }
   const getIngredients = useCallback(async () => {
     setShowIngredients(true)
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/recipes/${id}`)
+    const res = await fetchRecipeById(id.toString())
     const data = await res.json()
     setIngredients(data.ingredients)
   }, [id])
