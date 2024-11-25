@@ -1,12 +1,18 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation"
 
 export const metadata: Metadata = {
   title: "О нас",
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const serverSession = await getServerSession()
+  if (!serverSession) {
+    redirect(`${process.env.NEXT_PUBLIC_APP_URL}/auth/login?callbackUrl=/about`)
+  }
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">

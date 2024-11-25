@@ -5,13 +5,14 @@ import { passwordSchema, PasswordSchemaType } from "@/app/auth/_models/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn, useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 
 export default function LoginForm() {
   const [authError, setAuthError] = useState<string | null>(null)
-  const { data, status } = useSession()
-  useEffect(() => {
-    console.log(data, status)
-  }, [data, status])
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get("callbackUrl") ?? "/"
+  const router = useRouter()
+  const { data: session } = useSession()
   const {
     register,
     handleSubmit,
@@ -23,13 +24,19 @@ export default function LoginForm() {
       password: "",
     },
   })
+  useEffect(() => {
+    if (session) {
+      router.push(callbackUrl)
+    }
+  }, [callbackUrl, session, router])
   const onSubmit = async (data: PasswordSchemaType) => {
     setAuthError(null)
     const { email, password } = data
-    const result = await signIn("credentials", { email, password, redirect: false })
+    const result = await signIn("credentials", { email, password, redirect: false, callbackUrl })
     if (result?.ok) {
+      router.push(callbackUrl)
     } else {
-      setAuthError("неправильная пара E-mail/Пароль")
+      setAuthError("Неправильная пара E-mail/Пароль")
     }
   }
 
