@@ -7,10 +7,14 @@ import Logo from "@/app/icon.png"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { signOut, useSession } from "next-auth/react"
 
 export default function MainMenu() {
   const pathname = usePathname()
-
+  const { status } = useSession()
+  const onSignOutHandle = () => {
+    signOut()
+  }
   return (
     <Navbar
       fluid
@@ -28,7 +32,18 @@ export default function MainMenu() {
         <span className="self-center whitespace-nowrap text-xl font-semibold text-black dark:text-white">Книга рецептов</span>
       </NavbarBrand>
       <div className="flex md:order-2">
-        <button className="btn-primary">Начать</button>
+        {(status && status === "authenticated" && (
+          <button
+            className="btn-primary"
+            onClick={onSignOutHandle}
+          >
+            Выйти
+          </button>
+        )) || (
+          <Link href="/auth/signin">
+            <button className="btn-primary">Войти</button>
+          </Link>
+        )}
         <DarkThemeToggle className="ml-3" />
         <NavbarToggle />
       </div>
