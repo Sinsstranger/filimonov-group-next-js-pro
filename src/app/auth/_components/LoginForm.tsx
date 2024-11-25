@@ -1,10 +1,17 @@
 "use client"
-import { Button, Label, TextInput } from "flowbite-react"
+import { Alert, Button, Label, TextInput } from "flowbite-react"
 import { useForm } from "react-hook-form"
 import { passwordSchema, PasswordSchemaType } from "@/app/auth/_models/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { signIn, useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
 
 export default function LoginForm() {
+  const [authError, setAuthError] = useState<string | null>(null)
+  const { data, status } = useSession()
+  useEffect(() => {
+    console.log(data, status)
+  }, [data, status])
   const {
     register,
     handleSubmit,
@@ -16,8 +23,14 @@ export default function LoginForm() {
       password: "",
     },
   })
-  const onSubmit = (data: PasswordSchemaType) => {
-    console.log(data)
+  const onSubmit = async (data: PasswordSchemaType) => {
+    setAuthError(null)
+    const { email, password } = data
+    const result = await signIn("credentials", { email, password, redirect: false })
+    if (result?.ok) {
+    } else {
+      setAuthError("неправильная пара E-mail/Пароль")
+    }
   }
 
   return (
@@ -25,6 +38,16 @@ export default function LoginForm() {
       className="flex max-w-md flex-col gap-4"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <div>
+        {authError && (
+          <Alert
+            title={authError}
+            color="failure"
+          >
+            {authError}
+          </Alert>
+        )}
+      </div>
       <div>
         <div className="mb-2 block">
           <Label
