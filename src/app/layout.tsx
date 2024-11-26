@@ -4,6 +4,7 @@ import "./globals.css"
 // import { NavLinks } from "@/components/shared/NavLinks"
 import MainMenu from "@/components/shared/MainMenu"
 import React from "react"
+import Providers from "@/components/shared/Providers"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,11 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
-        <header className="bg-gray-200 text-white p-2">
-          <MainMenu />
-        </header>
+        <Providers>
+          <header className="bg-gray-200 text-white p-2">
+            <MainMenu />
+          </header>
 
-        <main className="flex-grow p-4">{children}</main>
+          <main className="flex-grow p-4">{children}</main>
+        </Providers>
         <footer className="bg-white dark:bg-gray-800 text-gray-500 dark:text-white p-4 text-center text-balance">
           © {new Date().getFullYear()} Все права защищены
         </footer>

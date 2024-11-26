@@ -2,7 +2,9 @@ import { z, ZodError } from "zod"
 
 export const schema = z.object({
   NEXT_PUBLIC_API_URL: z.string(),
+  NEXT_PUBLIC_APP_URL: z.string(),
   TOKEN: z.string().optional(),
+  NEXTAUTH_SECRET: z.string(),
   EXAMPLE: z.enum(["ON", "OFF"]).optional(),
   NEXT_PUBLIC_MAIN_RECIPE_ID: z.string().optional(),
 })
