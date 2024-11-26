@@ -40,7 +40,7 @@ export default function MainMenu() {
             Выйти
           </button>
         )) || (
-          <Link href="/auth/signin">
+          <Link href="/auth/login">
             <button className="btn-primary">Войти</button>
           </Link>
         )}
